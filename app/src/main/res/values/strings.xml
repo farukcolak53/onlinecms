@@ -6,6 +6,7 @@
     <string name="forgot_password">Forgot your password?</string>
     <string name="login_register">Not a member? Get registered now!</string>
     <string name="register">REGISTER</string>
+    <string name="register_name_surname">Name, Surname</string>
     <string name="forgot_password_instruction">Enter your email address and we will send you a link so you can log back into your account.</string>
     <string name="reset_password_button">Reset Password</string>
     <string name="back_button">&lt;&lt;BACK</string>
