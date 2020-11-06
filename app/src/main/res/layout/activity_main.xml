@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF6AD"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/login_image_view"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_main"
+        app:layout_constraintBottom_toTopOf="@id/login_email_edit_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/login_email_edit_text"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/edit_text_rounded_corners"
+        android:drawableStart="@drawable/ic_user"
+        android:drawablePadding="10dp"
+        android:hint="@string/login_email"
+        android:inputType="textEmailAddress"
+        android:paddingStart="10dp"
+        android:textSize="15sp"
+        android:paddingEnd="10dp"
+        app:layout_constraintBottom_toTopOf="@id/login_password_edit_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+    </EditText>
+
+    <EditText
+        android:id="@+id/login_password_edit_text"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:background="@drawable/edit_text_rounded_corners"
+        android:drawableStart="@drawable/ic_password"
+        android:drawablePadding="10dp"
+        android:hint="@string/login_password"
+        android:inputType="textPassword"
+        android:paddingStart="10dp"
+        android:textSize="15sp"
+        android:paddingEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </EditText>
+
+    <Button
+        android:id="@+id/button_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_button"
+        android:textAllCaps="false"
+        android:textColor="#FFF6AD"
+        app:backgroundTint="#2196F3"
+        app:layout_constraintBottom_toTopOf="@id/button_forgot_password"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_password_edit_text"
+        app:strokeColor="#2196F3"
+        app:strokeWidth="2dp">
+
+    </Button>
+
+    <Button
+        android:id="@+id/button_forgot_password"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/forgot_password"
+        android:textAllCaps="false"
+        android:textColor="#673AB7"
+        app:backgroundTint="#FFF6AD"
+        app:layout_constraintBottom_toTopOf="@id/button_register"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_login">
+
+    </Button>
+
+    <Button
+        android:id="@+id/button_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_register"
+        android:textAllCaps="false"
+        android:textColor="#673AB7"
+        app:backgroundTint="#FFF6AD"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_password_edit_text"
+        style="?android:attr/borderlessButtonStyle">
+    </Button>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Online CMS</string>
+    <string name="login_email">Email Address</string>
+    <string name="login_password">Password</string>
+    <string name="login_button">Login</string>
+    <string name="forgot_password">Forgot your password?</string>
+    <string name="login_register">Not a member? Get registered now!</string>
+    <string name="register">REGISTER</string>
+    <string name="forgot_password_instruction">Enter your email address and we will send you a link so you can log back into your account.</string>
+    <string name="reset_password_button">Reset Password</string>
+    <string name="back_button">&lt;&lt;BACK</string>
+    <string name="register_password_again">Retype Password</string>
+    <string name="register_button_sign_up">SIGN UP</string>
+    <string name="register_login">Already a member? Login here!</string>
+    <string name="profile_my_profile">My Profile</string>
+    <string name="profile_sign_out">Sign Out</string>
+    <string name="profile_new_complaint">New Complaint</string>
+    <string name="profile_my_complaints">My Complaints</string>
+    <string name="profile_profile_settings">Profile Settings</string>
+    <string name="profile_settings_header">Profile Settings</string>
+    <string name="save_button">Save</string>
+    <string name="discard_button">Dıscard</string>
+    <string name="new_complaint_header_text">New Complaint</string>
+    <string name="new_complaint_info_text">Please send us your complaints to make our place more beautiful!</string>
+    <string name="new_complaint_title_text">Title</string>
+    <string name="new_complaint_description_text">Description</string>
+    <string name="new_complaint_take_photo_text">Take Photo</string>
+    <string name="new_complaint_add_from_gallery_text">Add From Gallery</string>
+
+
+</resources>
