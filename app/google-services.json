@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "907498042359",
+    "firebase_url": "https://cmsmarmara.firebaseio.com",
+    "project_id": "cmsmarmara",
+    "storage_bucket": "cmsmarmara.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:907498042359:android:aaf73b674b6ce539f5f4f2",
+        "android_client_info": {
+          "package_name": "com.example.cms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "907498042359-s25akg570ndrslkt8ug9qk96l74hh69h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-AzofWpqp1LHeui1Gr8cPEs5IavAxAFM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "907498042359-s25akg570ndrslkt8ug9qk96l74hh69h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:907498042359:android:50eb48b935afe3d3f5f4f2",
+        "android_client_info": {
+          "package_name": "com.example.onlinecms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "907498042359-s25akg570ndrslkt8ug9qk96l74hh69h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-AzofWpqp1LHeui1Gr8cPEs5IavAxAFM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "907498042359-s25akg570ndrslkt8ug9qk96l74hh69h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
