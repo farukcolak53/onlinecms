@@ -172,6 +172,34 @@
 
             </Button>
 
+            <ImageView
+                android:id="@+id/new_complaint_image_view"
+                app:layout_constraintTop_toBottomOf="@id/new_complaint_take_photo_button"
+                android:layout_marginTop="20dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_width="100dp"
+                android:visibility="gone"
+                android:layout_height="100dp">
+
+            </ImageView>
+
+            <Button
+                android:id="@+id/new_complaint_add_location"
+                app:layout_constraintTop_toBottomOf="@id/new_complaint_image_view"
+                android:layout_marginTop="20dp"
+                android:drawableLeft="@drawable/ic_location"
+                android:textColor="#FFF6AD"
+                app:layout_constraintLeft_toLeftOf="@id/new_complaint_take_photo_button"
+                android:textSize="12sp"
+                android:textAllCaps="false"
+                android:text="@string/new_complaint_add_location_text"
+                android:layout_width="150dp"
+                android:layout_height="50dp">
+
+            </Button>
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

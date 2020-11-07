@@ -27,6 +27,9 @@
     <string name="new_complaint_description_text">Description</string>
     <string name="new_complaint_take_photo_text">Take Photo</string>
     <string name="new_complaint_add_from_gallery_text">Add From Gallery</string>
+    <string name="new_complaint_add_location_text">Add Location</string>
+    <string name="my_complaints_header_text">My Complaints</string>
+
 
 
 </resources>
