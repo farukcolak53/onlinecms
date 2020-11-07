@@ -9,10 +9,8 @@
     <string name="register_name_surname">Name, Surname</string>
     <string name="forgot_password_instruction">Enter your email address and we will send you a link so you can log back into your account.</string>
     <string name="reset_password_button">Reset Password</string>
-    <string name="back_button">&lt;&lt;BACK</string>
     <string name="register_password_again">Retype Password</string>
     <string name="register_button_sign_up">SIGN UP</string>
-    <string name="register_login">Already a member? Login here!</string>
     <string name="profile_my_profile">My Profile</string>
     <string name="profile_sign_out">Sign Out</string>
     <string name="profile_new_complaint">New Complaint</string>
@@ -29,7 +27,5 @@
     <string name="new_complaint_add_from_gallery_text">Add From Gallery</string>
     <string name="new_complaint_add_location_text">Add Location</string>
     <string name="my_complaints_header_text">My Complaints</string>
-
-
 
 </resources>

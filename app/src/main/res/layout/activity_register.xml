@@ -83,6 +83,7 @@
                 android:id="@+id/register_lower_constraint_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/register_inner_constraint_layout">
 
@@ -175,25 +176,9 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/register_password_again_edit_text"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:strokeColor="#2196F3"
                     app:strokeWidth="2dp">
-
-                </Button>
-
-                <Button
-                    android:id="@+id/register_button_login"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/register_login"
-                    android:textAllCaps="false"
-                    android:textColor="#673AB7"
-                    app:backgroundTint="#FFF6AD"
-                    android:layout_marginTop="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/register_button_sign_up"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent">
 
                 </Button>
 
