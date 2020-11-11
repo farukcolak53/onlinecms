@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -13,7 +13,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OnlineCMS">
-        <activity android:name=".NewComplaintActivity"/>
+        <activity
+            android:name=".ProfileSettingsActivity"
+            android:parentActivityName=".ProfileActivity"/>
+        <activity
+            android:name=".MyComplaintsActivity"
+            android:parentActivityName=".ProfileActivity"/>
+        <activity
+            android:name=".NewComplaintActivity"
+            android:parentActivityName=".ProfileActivity"/>
+        <activity android:name=".ProfileActivity" />
         <activity
             android:name=".RegisterActivity"
             android:parentActivityName=".MainActivity" />
