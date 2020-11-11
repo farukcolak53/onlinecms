@@ -1,19 +1,16 @@
 package com.example.onlinecms;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -22,7 +19,6 @@ import android.widget.ImageView;
 public class NewComplaintActivity extends AppCompatActivity {
 
     private ImageView imageView;
-    private static int RESULT_LOAD_IMAGE = 1;
     private static final int PICK_IMAGE = 100;
     Uri imageUri;
 
@@ -39,6 +35,36 @@ public class NewComplaintActivity extends AppCompatActivity {
                     Manifest.permission.CAMERA
             }, 100);
         }
+
+        imageView.setOnLongClickListener(new View.OnLongClickListener() {
+
+            @Override
+            public boolean onLongClick(View view) {
+
+                AlertDialog.Builder alert = new AlertDialog.Builder(
+                        NewComplaintActivity.this);
+                alert.setTitle("Warning!");
+                alert.setMessage("Are you sure you want to delete this photo?");
+                alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        imageView.setVisibility(View.GONE);
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                alert.show();
+
+                return true;
+            }
+        });
     }
 
     public void takePhoto(View view) {
@@ -57,19 +83,6 @@ public class NewComplaintActivity extends AppCompatActivity {
             imageView.setImageBitmap(captureImage);
             imageView.setVisibility(View.VISIBLE);
         }
-        /*if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
-            Uri selectedImage = data.getData();
-            String[] filePathColumn = { MediaStore.Images.Media.DATA };
-            Cursor cursor = getContentResolver().query(selectedImage,
-                    filePathColumn, null, null, null);
-            cursor.moveToFirst();
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String picturePath = cursor.getString(columnIndex);
-            cursor.close();
-            imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-            imageView.setVisibility(View.VISIBLE);
-
-        }*/
 
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE){
             imageUri = data.getData();
