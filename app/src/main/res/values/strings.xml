@@ -17,6 +17,7 @@
     <string name="profile_my_complaints">My Complaints</string>
     <string name="profile_profile_settings">Profile Settings</string>
     <string name="profile_settings_header">Profile Settings</string>
+    <string name="profile_settings_new_password">New Password</string>
     <string name="save_button">Save</string>
     <string name="discard_button">Dıscard</string>
     <string name="new_complaint_header_text">New Complaint</string>
