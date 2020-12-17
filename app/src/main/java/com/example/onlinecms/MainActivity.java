@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
+    //deneme
     private EditText emailEditText, passwordEditText;
     private ProgressBar progressBar;
 
