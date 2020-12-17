@@ -20,6 +20,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     //mail: cmsmobilproject2020@gmail.com
     //şifre: Marmara2020
+    //
 
     static int PReqCode = 1;
     static int REQUESCODE = 1;
