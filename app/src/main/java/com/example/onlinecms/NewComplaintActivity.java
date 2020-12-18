@@ -19,7 +19,8 @@ import android.widget.ImageView;
 public class NewComplaintActivity extends AppCompatActivity {
 
     private ImageView imageView;
-    private static final int PICK_IMAGE = 100;
+    private static final int PICK_IMAGE = 200;
+    private static final int TAKE_PHOTO = 100;
     Uri imageUri;
 
     @Override
@@ -33,7 +34,7 @@ public class NewComplaintActivity extends AppCompatActivity {
                 Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, new String[]{
                     Manifest.permission.CAMERA
-            }, 100);
+            }, TAKE_PHOTO);
         }
 
         imageView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -49,6 +50,7 @@ public class NewComplaintActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         imageView.setVisibility(View.GONE);
+                        //imageView.setImageDrawable(null);
                         dialogInterface.dismiss();
                     }
                 });
@@ -70,7 +72,7 @@ public class NewComplaintActivity extends AppCompatActivity {
     public void takePhoto(View view) {
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, 100);
+        startActivityForResult(intent, TAKE_PHOTO);
 
     }
 
@@ -78,15 +80,18 @@ public class NewComplaintActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 100){
+        if(requestCode == TAKE_PHOTO){
             Bitmap captureImage = (Bitmap) data.getExtras().get("data");
             imageView.setImageBitmap(captureImage);
             imageView.setVisibility(View.VISIBLE);
         }
 
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE){
+            //Bitmap captureImage = (Bitmap) data.getExtras().get("data");
+            //imageView.setImageBitmap(captureImage);
             imageUri = data.getData();
             imageView.setImageURI(imageUri);
+            imageView.setVisibility(View.VISIBLE);
         }
     }
 
