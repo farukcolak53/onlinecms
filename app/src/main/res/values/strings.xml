@@ -30,5 +30,6 @@
     <string name="my_complaints_header_text">My Complaints</string>
     <string name="map_key">AIzaSyAM_vLkGDWCGA8UMZlnl-Q2C4juWtvTJLM</string>
     <string name="option_get_place">SELECT</string>
+    <string name="send_complaint">SAVE COMPLAINT</string>
 
 </resources>

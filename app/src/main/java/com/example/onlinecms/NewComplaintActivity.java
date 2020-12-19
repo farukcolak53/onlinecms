@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,7 +35,9 @@ public class NewComplaintActivity extends AppCompatActivity {
     private static final int PICK_IMAGE = 200;
     private static final int TAKE_PHOTO = 100;
     private static final int LOCATION = 101;
-
+    private EditText titleText;
+    private EditText descriptionText;
+    private TextView addressText;
     Uri imageUri;
 
     @Override
@@ -42,7 +45,9 @@ public class NewComplaintActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_complaint);
         imageView = findViewById(R.id.new_complaint_image_view);
-
+        titleText = findViewById(R.id.new_complaint_title_edit_text);
+        descriptionText = findViewById(R.id.new_complaint_description_edit_text);
+        addressText = findViewById(R.id.new_complaint_location_text_view);
         if(ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, new String[]{
@@ -94,6 +99,18 @@ public class NewComplaintActivity extends AppCompatActivity {
         startActivityForResult(intent, LOCATION);
     }
 
+    public void saveComplaint(View view){
+        String title = titleText.getText().toString();
+        String description = descriptionText.getText().toString();
+        String address = addressText.getText().toString();
+        if(title.equals("") && description.equals("") && address.equals("")){
+            titleText.setError("Provide a title");
+            descriptionText.setError("Provide a description");
+        }else{
+
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -126,7 +143,7 @@ public class NewComplaintActivity extends AppCompatActivity {
                 }
 
                 String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-                TextView locationText = findViewById(R.id.location);
+                TextView locationText = findViewById(R.id.new_complaint_location_text_view);
                 locationText.setVisibility(View.VISIBLE);
                 locationText.setText(address);
             }
