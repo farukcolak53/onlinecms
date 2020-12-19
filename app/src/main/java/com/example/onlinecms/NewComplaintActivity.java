@@ -1,33 +1,46 @@
 package com.example.onlinecms;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 public class NewComplaintActivity extends AppCompatActivity {
 
     private ImageView imageView;
     private static final int PICK_IMAGE = 200;
     private static final int TAKE_PHOTO = 100;
+    private static final int LOCATION = 101;
+
     Uri imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_complaint);
-
         imageView = findViewById(R.id.new_complaint_image_view);
 
         if(ContextCompat.checkSelfPermission(this,
@@ -73,7 +86,12 @@ public class NewComplaintActivity extends AppCompatActivity {
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, TAKE_PHOTO);
+    }
 
+
+    public void getLoc(View view){
+        Intent intent = new Intent(this, LocationHelper.class);
+        startActivityForResult(intent, LOCATION);
     }
 
     @Override
@@ -93,6 +111,27 @@ public class NewComplaintActivity extends AppCompatActivity {
             imageView.setImageURI(imageUri);
             imageView.setVisibility(View.VISIBLE);
         }
+
+        if(requestCode == LOCATION){
+            if(resultCode == RESULT_OK){
+                Geocoder geocoder;
+                List<Address> addresses = null;
+                geocoder = new Geocoder(this, Locale.getDefault());
+
+                Location location = (Location) data.getExtras().get("location");
+                try {
+                    addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                TextView locationText = findViewById(R.id.location);
+                locationText.setVisibility(View.VISIBLE);
+                locationText.setText(address);
+            }
+        }
+
     }
 
     public void addFromGallery(View view) {
@@ -101,4 +140,7 @@ public class NewComplaintActivity extends AppCompatActivity {
         //startActivityForResult(intent, RESULT_LOAD_IMAGE);
         startActivityForResult(intent, PICK_IMAGE);
     }
+
+
+
 }
