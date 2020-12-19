@@ -34,6 +34,7 @@ public class NewComplaintActivity extends AppCompatActivity {
     private static final int PICK_IMAGE = 200;
     private static final int TAKE_PHOTO = 100;
     private static final int LOCATION = 101;
+
     Uri imageUri;
 
     @Override
@@ -62,6 +63,7 @@ public class NewComplaintActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         imageView.setVisibility(View.GONE);
+                        //imageView.setImageDrawable(null);
                         dialogInterface.dismiss();
                     }
                 });
@@ -84,8 +86,8 @@ public class NewComplaintActivity extends AppCompatActivity {
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, TAKE_PHOTO);
-
     }
+
 
     public void getLoc(View view){
         Intent intent = new Intent(this, LocationHelper.class);
@@ -103,8 +105,11 @@ public class NewComplaintActivity extends AppCompatActivity {
         }
 
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE){
+            //Bitmap captureImage = (Bitmap) data.getExtras().get("data");
+            //imageView.setImageBitmap(captureImage);
             imageUri = data.getData();
             imageView.setImageURI(imageUri);
+            imageView.setVisibility(View.VISIBLE);
         }
 
         if(requestCode == LOCATION){
