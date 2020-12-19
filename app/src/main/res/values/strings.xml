@@ -28,5 +28,7 @@
     <string name="new_complaint_add_from_gallery_text">Add From Gallery</string>
     <string name="new_complaint_add_location_text">Add Location</string>
     <string name="my_complaints_header_text">My Complaints</string>
+    <string name="map_key">AIzaSyAM_vLkGDWCGA8UMZlnl-Q2C4juWtvTJLM</string>
+    <string name="option_get_place">SELECT</string>
 
 </resources>
