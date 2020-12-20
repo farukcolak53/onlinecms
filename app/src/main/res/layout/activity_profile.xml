@@ -68,6 +68,7 @@
             android:id="@+id/profile_card_view1"
             app:cardCornerRadius="10dp"
             android:elevation="3dp"
+            app:cardBackgroundColor="#2196F3"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/profile_card_view3"
             app:layout_constraintRight_toLeftOf="@id/profile_card_view2"
@@ -78,7 +79,6 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/profile_card_view1_constraint"
                 android:layout_width="match_parent"
-                android:background="#2196F3"
                 android:layout_height="match_parent">
 
                 <ImageButton
@@ -117,6 +117,7 @@
             android:id="@+id/profile_card_view2"
             app:cardCornerRadius="10dp"
             android:elevation="3dp"
+            app:cardBackgroundColor="#2196F3"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/profile_card_view4"
             app:layout_constraintRight_toRightOf="parent"
@@ -127,7 +128,6 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/profile_card_view2_constraint"
                 android:layout_width="match_parent"
-                android:background="#2196F3"
                 android:layout_height="match_parent">
 
                 <ImageButton
@@ -167,6 +167,7 @@
             android:id="@+id/profile_card_view3"
             app:cardCornerRadius="10dp"
             android:elevation="3dp"
+            app:cardBackgroundColor="#2196F3"
             app:layout_constraintTop_toBottomOf="@id/profile_card_view1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toLeftOf="@id/profile_card_view2"
@@ -178,7 +179,6 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/profile_card_view3_constraint"
                 android:layout_width="match_parent"
-                android:background="#2196F3"
                 android:layout_height="match_parent">
 
                 <ImageButton
@@ -217,6 +217,7 @@
             android:id="@+id/profile_card_view4"
             app:cardCornerRadius="10dp"
             android:elevation="3dp"
+            app:cardBackgroundColor="#2196F3"
             app:layout_constraintTop_toBottomOf="@id/profile_card_view2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -227,7 +228,6 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/profile_card_view4_constraint"
                 android:layout_width="match_parent"
-                android:background="#2196F3"
                 android:layout_height="match_parent">
 
                 <ImageButton
@@ -243,7 +243,7 @@
                     android:layout_height="60dp">
 
                 </ImageButton>
-                
+
                 <TextView
                     android:id="@+id/profile_sign_out_text"
                     android:text="@string/profile_sign_out"
