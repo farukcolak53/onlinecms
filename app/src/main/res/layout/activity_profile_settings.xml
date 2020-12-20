@@ -72,13 +72,13 @@
             app:layout_constraintBottom_toTopOf="@id/profile_settings_email_card_view"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:cardBackgroundColor="#2196F3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/profile_card_view3_constraint"
                 android:layout_width="match_parent"
-                android:background="#2196F3"
                 android:layout_height="match_parent">
 
                 <TextView
@@ -124,13 +124,13 @@
             app:layout_constraintBottom_toTopOf="@id/profile_settings_password_card_view"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:cardBackgroundColor="#2196F3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/profile_card_view1_constraint"
                 android:layout_width="match_parent"
-                android:background="#2196F3"
                 android:layout_height="match_parent">
 
                 <TextView
@@ -177,13 +177,13 @@
             app:layout_constraintTop_toBottomOf="@id/profile_settings_email_card_view"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:cardBackgroundColor="#2196F3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/profile_card_view2_constraint"
                 android:layout_width="match_parent"
-                android:background="#2196F3"
                 android:layout_height="match_parent">
 
                 <TextView
@@ -225,6 +225,7 @@
             android:id="@+id/profile_settings_new_password_card_view"
             app:cardCornerRadius="10dp"
             android:elevation="3dp"
+            app:cardBackgroundColor="#2196F3"
             app:layout_constraintBottom_toTopOf="@id/profile_settings_save_button"
             app:layout_constraintTop_toBottomOf="@id/profile_settings_password_card_view"
             app:layout_constraintRight_toRightOf="parent"
@@ -235,7 +236,6 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/profile_card_view4_constraint"
                 android:layout_width="match_parent"
-                android:background="#2196F3"
                 android:layout_height="match_parent">
 
                 <TextView
