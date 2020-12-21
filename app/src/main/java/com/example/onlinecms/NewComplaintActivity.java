@@ -126,10 +126,13 @@ public class NewComplaintActivity extends AppCompatActivity {
         String address = addressText.getText().toString();
         String id = user.getUid();
         HashMap<String, Object> complaint = new HashMap<>();
-        if(title.equals("") && description.equals("")){
-            titleText.setError("Provide a title");
-            descriptionText.setError("Provide a description");
-        }else{
+        if(title.equals("") || description.equals("")){
+            if (title.equals(""))
+                titleText.setError("Provide a title");
+            if (description.equals(""))
+                descriptionText.setError("Provide a description");
+        }
+        else{
             Toast.makeText(this, "Uploading...", Toast.LENGTH_SHORT).show();
             complaint.put("Title", title);
             complaint.put("Description", description);

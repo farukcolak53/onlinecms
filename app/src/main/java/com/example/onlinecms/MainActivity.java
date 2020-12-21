@@ -66,5 +66,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+        else {
+            if (emailAddress.equals("")){
+                emailEditText.setError("Please enter your email address!");
+            }
+            if (password.equals("")){
+                passwordEditText.setError("Please enter your password!");
+            }
+        }
     }
 }

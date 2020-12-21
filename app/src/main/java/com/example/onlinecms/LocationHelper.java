@@ -174,6 +174,10 @@ public class LocationHelper extends AppCompatActivity
             setResult(RESULT_OK,intent);
             finish();
         }
+        else{
+            Intent myIntent = new Intent(getApplicationContext(), NewComplaintActivity.class);
+            startActivityForResult(myIntent, 0);
+        }
         return true;
     }
     // [END maps_current_place_on_options_item_selected]
