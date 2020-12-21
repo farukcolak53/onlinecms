@@ -15,19 +15,34 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.onlinecms.model.Complaint;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.*;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class NewComplaintActivity extends AppCompatActivity {
 
@@ -38,6 +53,9 @@ public class NewComplaintActivity extends AppCompatActivity {
     private EditText titleText;
     private EditText descriptionText;
     private TextView addressText;
+    private DatabaseReference mRef;
+    private FirebaseUser user;
+
     Uri imageUri;
 
     @Override
@@ -48,6 +66,9 @@ public class NewComplaintActivity extends AppCompatActivity {
         titleText = findViewById(R.id.new_complaint_title_edit_text);
         descriptionText = findViewById(R.id.new_complaint_description_edit_text);
         addressText = findViewById(R.id.new_complaint_location_text_view);
+        mRef = FirebaseDatabase.getInstance().getReference();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        //mRef = FirebaseDatabase.getInstance();
         if(ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, new String[]{
@@ -103,10 +124,35 @@ public class NewComplaintActivity extends AppCompatActivity {
         String title = titleText.getText().toString();
         String description = descriptionText.getText().toString();
         String address = addressText.getText().toString();
-        if(title.equals("") && description.equals("") && address.equals("")){
+        String id = user.getUid();
+        HashMap<String, Object> complaint = new HashMap<>();
+        if(title.equals("") && description.equals("")){
             titleText.setError("Provide a title");
             descriptionText.setError("Provide a description");
         }else{
+            Toast.makeText(this, "Uploading...", Toast.LENGTH_SHORT).show();
+            complaint.put("Title", title);
+            complaint.put("Description", description);
+            complaint.put("Address",address);
+            complaint.put("Photo", imageUri);
+            mRef.child("cmsmarmara").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    upload(id,title,description,address);
+                    finish();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+//            DatabaseReference myDescRef = mRef.getReference().child("description");
+//            myDescRef.setValue(description);
+//            DatabaseReference myImageRef = mRef.getReference().child("image");
+//            myImageRef.setValue(imageUri);
+//            DatabaseReference myAddressRef = mRef.getReference().child("address");
+//            myAddressRef.setValue(address);
 
         }
     }
@@ -158,6 +204,20 @@ public class NewComplaintActivity extends AppCompatActivity {
         startActivityForResult(intent, PICK_IMAGE);
     }
 
-
+    private void upload(String id, String title, String desc, String address){
+        //mRef = FirebaseDatabase.getInstance().getReference().child(id).child("complaint");
+        //String key = mRef.child("cmsmarmara").push().getKey();
+//        HashMap<String, Object> complaint = new HashMap<>();
+//        complaint.put("Id",id);
+//        complaint.put("Title", title);
+//        complaint.put("Description", desc);
+//        complaint.put("Address",address);
+//        Map<String, Object> childUpdates = new HashMap<>();
+//        childUpdates.put("/complaints" + key, complaint);
+//        childUpdates.put("user/complaints" + id + "/" + key,complaint);
+//        mRef.updateChildren(childUpdates);
+        Complaint complaint = new Complaint(title,desc,address);
+        mRef.child(id).child(Integer.toString(complaint.getCount())).updateChildren(complaint.toMap());
+    }
 
 }
