@@ -9,6 +9,11 @@ public class Complaint {
     private String description;
     private String address;
     private static int count = 0;
+
+    public Complaint(){
+
+    }
+
     public Complaint(String title, String description, String address) {
         this.title = title;
         this.description = description;
@@ -26,5 +31,17 @@ public class Complaint {
         result.put("description", description);
         result.put("title",title);
         return result;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getAddress() {
+        return address;
     }
 }
