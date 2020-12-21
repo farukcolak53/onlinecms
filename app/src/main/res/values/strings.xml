@@ -31,5 +31,8 @@
     <string name="map_key">AIzaSyAM_vLkGDWCGA8UMZlnl-Q2C4juWtvTJLM</string>
     <string name="option_get_place">SELECT</string>
     <string name="send_complaint">SAVE COMPLAINT</string>
+    <string name="dialog_title">Title: </string>
+    <string name="dialog_description">Description: </string>
+    <string name="dialog_address">Address: </string>
 
 </resources>
