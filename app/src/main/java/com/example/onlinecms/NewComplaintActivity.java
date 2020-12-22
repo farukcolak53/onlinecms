@@ -1,6 +1,7 @@
 package com.example.onlinecms;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -11,6 +12,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,6 +26,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.bumptech.glide.Glide;
 import com.example.onlinecms.model.Complaint;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -36,7 +39,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.*;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.core.Path;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -138,11 +143,18 @@ public class NewComplaintActivity extends AppCompatActivity {
             complaint.put("Description", description);
             complaint.put("Address",address);
             complaint.put("Photo", imageUri);
-            mRef.child("cmsmarmara").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+            mRef.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    upload(id,title,description,address);
-                    finish();
+                    if(snapshot.exists()){
+                        int count =(int) snapshot.getChildrenCount();
+                        upload(id,title,description,address, count);
+                        finish();
+                    }else{
+                        upload(id,title,description,address, 0);
+                        finish();
+                    }
+
                 }
 
                 @Override
@@ -207,7 +219,7 @@ public class NewComplaintActivity extends AppCompatActivity {
         startActivityForResult(intent, PICK_IMAGE);
     }
 
-    private void upload(String id, String title, String desc, String address){
+    private void upload(String id, String title, String desc, String address, int count){
         //mRef = FirebaseDatabase.getInstance().getReference().child(id).child("complaint");
         //String key = mRef.child("cmsmarmara").push().getKey();
 //        HashMap<String, Object> complaint = new HashMap<>();
@@ -219,8 +231,12 @@ public class NewComplaintActivity extends AppCompatActivity {
 //        childUpdates.put("/complaints" + key, complaint);
 //        childUpdates.put("user/complaints" + id + "/" + key,complaint);
 //        mRef.updateChildren(childUpdates);
+        //mRef.child(id).getChildrenCount();
         Complaint complaint = new Complaint(title,desc,address);
-        mRef.child(id).child(Integer.toString(complaint.getCount())).updateChildren(complaint.toMap());
+        mRef.child(id).child(Integer.toString(count)).updateChildren(complaint.toMap());
+
+        //String path = "https://cmsmarmara.firebaseio.com/" + "cmsmarmara" + id + complaint.getCount() + "image";
+        //Glide.with(this).load(path).into(imageView);
     }
 
 }
