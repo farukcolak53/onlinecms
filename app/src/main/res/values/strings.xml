@@ -34,5 +34,7 @@
     <string name="dialog_title">Title: </string>
     <string name="dialog_description">Description: </string>
     <string name="dialog_address">Address: </string>
+    <string name="dialog_image">Image: </string>
+
 
 </resources>

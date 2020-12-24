@@ -1,53 +1,44 @@
 package com.example.onlinecms;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
-import com.bumptech.glide.Glide;
 import com.example.onlinecms.model.Complaint;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.*;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.core.Path;
-
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 public class NewComplaintActivity extends AppCompatActivity {
 
@@ -60,6 +51,8 @@ public class NewComplaintActivity extends AppCompatActivity {
     private TextView addressText;
     private DatabaseReference mRef;
     private FirebaseUser user;
+    private FirebaseStorage firebaseStorage;
+    private StorageReference mStorageRef;
 
     Uri imageUri;
 
@@ -73,6 +66,11 @@ public class NewComplaintActivity extends AppCompatActivity {
         addressText = findViewById(R.id.new_complaint_location_text_view);
         mRef = FirebaseDatabase.getInstance().getReference();
         user = FirebaseAuth.getInstance().getCurrentUser();
+
+        firebaseStorage = FirebaseStorage.getInstance();
+        mStorageRef = firebaseStorage.getReference();
+
+
         //mRef = FirebaseDatabase.getInstance();
         if(ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
@@ -119,7 +117,6 @@ public class NewComplaintActivity extends AppCompatActivity {
         startActivityForResult(intent, TAKE_PHOTO);
     }
 
-
     public void getLoc(View view){
         Intent intent = new Intent(this, LocationHelper.class);
         startActivityForResult(intent, LOCATION);
@@ -139,6 +136,7 @@ public class NewComplaintActivity extends AppCompatActivity {
         }
         else{
             Toast.makeText(this, "Uploading...", Toast.LENGTH_SHORT).show();
+
             complaint.put("Title", title);
             complaint.put("Description", description);
             complaint.put("Address",address);
@@ -146,15 +144,18 @@ public class NewComplaintActivity extends AppCompatActivity {
             mRef.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(snapshot.exists()){
+                    if (snapshot.exists()){
                         int count =(int) snapshot.getChildrenCount();
-                        upload(id,title,description,address, count);
-                        finish();
-                    }else{
-                        upload(id,title,description,address, 0);
-                        finish();
+                        uploadImageToStorage(id, count);
+                        String imageUrl = "https://firebasestorage.googleapis.com/b/cmsmarmara.appspot.com/o/images/" + id + "*" + count;
+                        upload(id,title,description,address, imageUrl, count);
                     }
-
+                    else{
+                        uploadImageToStorage(id, 0);
+                        String imageUrl = "https://firebasestorage.googleapis.com/b/cmsmarmara.appspot.com/o/images/" + id + "*0";
+                        upload(id,title,description,address, imageUrl, 0);
+                    }
+                    finish();
                 }
 
                 @Override
@@ -162,14 +163,29 @@ public class NewComplaintActivity extends AppCompatActivity {
 
                 }
             });
-//            DatabaseReference myDescRef = mRef.getReference().child("description");
-//            myDescRef.setValue(description);
-//            DatabaseReference myImageRef = mRef.getReference().child("image");
-//            myImageRef.setValue(imageUri);
-//            DatabaseReference myAddressRef = mRef.getReference().child("address");
-//            myAddressRef.setValue(address);
-
         }
+    }
+
+    private void uploadImageToStorage(String id, int count) {
+        //final ProgressDialog progressDialog = new ProgressDialog(this);
+        //progressDialog.setTitle("Uploading...");
+        //progressDialog.show();
+        String path = "images/" + id + "*" + count;
+        StorageReference reference = mStorageRef.child(path);
+        reference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                System.out.println(reference.getPath());
+                //progressDialog.dismiss();
+                //Toast.makeText(NewComplaintActivity.this, "Image uploaded!", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                double progress = (100.0*snapshot.getBytesTransferred())/snapshot.getTotalByteCount();
+                //progressDialog.setMessage("Uploaded " + (int)progress + "%");
+            }
+        });
     }
 
     @Override
@@ -177,14 +193,12 @@ public class NewComplaintActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == TAKE_PHOTO){
-            Bitmap captureImage = (Bitmap) data.getExtras().get("data");
-            imageView.setImageBitmap(captureImage);
+            imageUri = data.getData();
+            imageView.setImageURI(imageUri);
             imageView.setVisibility(View.VISIBLE);
         }
 
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE){
-            //Bitmap captureImage = (Bitmap) data.getExtras().get("data");
-            //imageView.setImageBitmap(captureImage);
             imageUri = data.getData();
             imageView.setImageURI(imageUri);
             imageView.setVisibility(View.VISIBLE);
@@ -219,7 +233,7 @@ public class NewComplaintActivity extends AppCompatActivity {
         startActivityForResult(intent, PICK_IMAGE);
     }
 
-    private void upload(String id, String title, String desc, String address, int count){
+    private void upload(String id, String title, String desc, String address, String url, int count){
         //mRef = FirebaseDatabase.getInstance().getReference().child(id).child("complaint");
         //String key = mRef.child("cmsmarmara").push().getKey();
 //        HashMap<String, Object> complaint = new HashMap<>();
@@ -232,11 +246,7 @@ public class NewComplaintActivity extends AppCompatActivity {
 //        childUpdates.put("user/complaints" + id + "/" + key,complaint);
 //        mRef.updateChildren(childUpdates);
         //mRef.child(id).getChildrenCount();
-        Complaint complaint = new Complaint(title,desc,address);
+        Complaint complaint = new Complaint(title,desc,address, url);
         mRef.child(id).child(Integer.toString(count)).updateChildren(complaint.toMap());
-
-        //String path = "https://cmsmarmara.firebaseio.com/" + "cmsmarmara" + id + complaint.getCount() + "image";
-        //Glide.with(this).load(path).into(imageView);
     }
-
 }

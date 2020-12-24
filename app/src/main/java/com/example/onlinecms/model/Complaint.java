@@ -8,16 +8,18 @@ public class Complaint {
     private String title;
     private String description;
     private String address;
+    private String imageUrl;
     private static int count = 0;
 
     public Complaint(){
 
     }
 
-    public Complaint(String title, String description, String address) {
+    public Complaint(String title, String description, String address, String imageUrl) {
         this.title = title;
         this.description = description;
         this.address = address;
+        this.imageUrl = imageUrl;
         this.count = count + 1;
     }
 
@@ -30,6 +32,7 @@ public class Complaint {
         result.put("address",address);
         result.put("description", description);
         result.put("title",title);
+        result.put("imageUrl", imageUrl);
         return result;
     }
 
@@ -43,5 +46,9 @@ public class Complaint {
 
     public String getAddress() {
         return address;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
     }
 }
