@@ -39,6 +39,13 @@
     <string name="admin_profile_profile_settings">Profile Settings</string>
     <string name="admin_profile_all_complaints">All Complaints</string>
     <string name="admin_profile_add_admin">Add Admin</string>
+    <string name="add_new_admin">Add New Admin</string>
+    <string name="add_new_admin_name_surname">Name, Surname</string>
+    <string name="add_new_admin_email">Email Address</string>
+    <string name="add_new_admin_password">Password</string>
+    <string name="add_new_admin_password_again">Retype Password</string>
+    <string name="add_new_admin_button">ADD</string>
+    <string name="all_complaints_header_text">All Complaints</string>
 
 
 </resources>
