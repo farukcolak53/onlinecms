@@ -10,6 +10,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.EditText;
@@ -70,8 +71,6 @@ public class NewComplaintActivity extends AppCompatActivity {
         firebaseStorage = FirebaseStorage.getInstance();
         mStorageRef = firebaseStorage.getReference();
 
-
-        //mRef = FirebaseDatabase.getInstance();
         if(ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, new String[]{
@@ -92,7 +91,6 @@ public class NewComplaintActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         imageView.setVisibility(View.GONE);
-                        //imageView.setImageDrawable(null);
                         dialogInterface.dismiss();
                     }
                 });
@@ -137,25 +135,16 @@ public class NewComplaintActivity extends AppCompatActivity {
         else{
             Toast.makeText(this, "Uploading...", Toast.LENGTH_SHORT).show();
 
-            complaint.put("Title", title);
-            complaint.put("Description", description);
-            complaint.put("Address",address);
-            complaint.put("Photo", imageUri);
             mRef.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()){
                         int count =(int) snapshot.getChildrenCount();
-                        uploadImageToStorage(id, count);
-                        String imageUrl = "https://firebasestorage.googleapis.com/b/cmsmarmara.appspot.com/o/images/" + id + "*" + count;
-                        upload(id,title,description,address, imageUrl, count);
+                        uploadImageToStorage(id, count, title, address, description);
                     }
                     else{
-                        uploadImageToStorage(id, 0);
-                        String imageUrl = "https://firebasestorage.googleapis.com/b/cmsmarmara.appspot.com/o/images/" + id + "*0";
-                        upload(id,title,description,address, imageUrl, 0);
+                        uploadImageToStorage(id, 0, title, address, description);
                     }
-                    finish();
                 }
 
                 @Override
@@ -166,24 +155,35 @@ public class NewComplaintActivity extends AppCompatActivity {
         }
     }
 
-    private void uploadImageToStorage(String id, int count) {
-        //final ProgressDialog progressDialog = new ProgressDialog(this);
-        //progressDialog.setTitle("Uploading...");
-        //progressDialog.show();
+    private void uploadImageToStorage(String id, int count, String title, String address, String description) {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Uploading...");
+        progressDialog.show();
+
         String path = "images/" + id + "*" + count;
         StorageReference reference = mStorageRef.child(path);
+
         reference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                System.out.println(reference.getPath());
-                //progressDialog.dismiss();
-                //Toast.makeText(NewComplaintActivity.this, "Image uploaded!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NewComplaintActivity.this, "Image uploaded!", Toast.LENGTH_SHORT).show();
+                String imageUrl = "https://firebasestorage.googleapis.com/b/cmsmarmara.appspot.com/o/images/" + id + "*" + count;
+                upload(id,title,description,address, imageUrl, count);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        progressDialog.dismiss();
+                        finish();
+                    }
+                }, 1000);
             }
         }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                double progress = (100.0*snapshot.getBytesTransferred())/snapshot.getTotalByteCount();
+                //double progress = (100.0*snapshot.getBytesTransferred())/snapshot.getTotalByteCount();
                 //progressDialog.setMessage("Uploaded " + (int)progress + "%");
+                progressDialog.setMessage("Uploading");
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             }
         });
     }
@@ -223,29 +223,14 @@ public class NewComplaintActivity extends AppCompatActivity {
                 locationText.setText(address);
             }
         }
-
     }
 
     public void addFromGallery(View view) {
-
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        //startActivityForResult(intent, RESULT_LOAD_IMAGE);
         startActivityForResult(intent, PICK_IMAGE);
     }
 
     private void upload(String id, String title, String desc, String address, String url, int count){
-        //mRef = FirebaseDatabase.getInstance().getReference().child(id).child("complaint");
-        //String key = mRef.child("cmsmarmara").push().getKey();
-//        HashMap<String, Object> complaint = new HashMap<>();
-//        complaint.put("Id",id);
-//        complaint.put("Title", title);
-//        complaint.put("Description", desc);
-//        complaint.put("Address",address);
-//        Map<String, Object> childUpdates = new HashMap<>();
-//        childUpdates.put("/complaints" + key, complaint);
-//        childUpdates.put("user/complaints" + id + "/" + key,complaint);
-//        mRef.updateChildren(childUpdates);
-        //mRef.child(id).getChildrenCount();
         Complaint complaint = new Complaint(title,desc,address, url);
         mRef.child(id).child(Integer.toString(count)).updateChildren(complaint.toMap());
     }
