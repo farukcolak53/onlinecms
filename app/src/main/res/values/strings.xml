@@ -35,6 +35,10 @@
     <string name="dialog_description">Description: </string>
     <string name="dialog_address">Address: </string>
     <string name="dialog_image">Image: </string>
+    <string name="admin_profile_admin">Admin</string>
+    <string name="admin_profile_profile_settings">Profile Settings</string>
+    <string name="admin_profile_all_complaints">All Complaints</string>
+    <string name="admin_profile_add_admin">Add Admin</string>
 
 
 </resources>

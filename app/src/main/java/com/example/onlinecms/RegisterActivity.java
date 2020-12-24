@@ -66,9 +66,14 @@ public class RegisterActivity extends AppCompatActivity {
 
                 }
                 else {
-                    // everything is ok and all fields are filled now we can start creating user account
-                    // CreateUserAccount method will try to create the user if the email is valid
-                    createUserAccount(email, name, password);
+                    if (email.contains("@admin.com") || email.contains("@cmsmarmara.com")){
+                        userEmail.setError("You cannot use that email extension!");
+                    }
+                    else{
+                        // everything is ok and all fields are filled now we can start creating user account
+                        // CreateUserAccount method will try to create the user if the email is valid
+                        createUserAccount(email, name, password);
+                    }
                 }
             }
         });
