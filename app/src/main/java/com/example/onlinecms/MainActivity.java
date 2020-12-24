@@ -13,6 +13,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.sql.SQLOutput;
+
 public class MainActivity extends AppCompatActivity {
 
     //deneme
@@ -50,21 +52,43 @@ public class MainActivity extends AppCompatActivity {
 
         if(!(emailAddress.equals("") || password.equals(""))) {
 
-            progressBar.setVisibility(View.VISIBLE);
+         if(emailAddress.contains("@cmsmarmara.com")){
 
-            firebaseAuth.signInWithEmailAndPassword(emailAddress, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-                        Toast.makeText(MainActivity.this, "Logged in successfully!", Toast.LENGTH_SHORT).show();
-                        finish();
-                    } else {
-                        progressBar.setVisibility(View.INVISIBLE);
-                        Toast.makeText(MainActivity.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
+             progressBar.setVisibility(View.VISIBLE);
+
+             firebaseAuth.signInWithEmailAndPassword(emailAddress, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                 @Override
+                 public void onComplete(@NonNull Task<AuthResult> task) {
+                     if (task.isSuccessful()) {
+                         startActivity(new Intent(getApplicationContext(), AdminProfileActivity.class));
+                         Toast.makeText(MainActivity.this, "Logged in successfully!", Toast.LENGTH_SHORT).show();
+                         finish();
+                     } else {
+                         progressBar.setVisibility(View.INVISIBLE);
+                         Toast.makeText(MainActivity.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                     }
+                 }
+             });
+
+
+         }else{
+
+             progressBar.setVisibility(View.VISIBLE);
+
+             firebaseAuth.signInWithEmailAndPassword(emailAddress, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                 @Override
+                 public void onComplete(@NonNull Task<AuthResult> task) {
+                     if (task.isSuccessful()) {
+                         startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                         Toast.makeText(MainActivity.this, "Logged in successfully!", Toast.LENGTH_SHORT).show();
+                         finish();
+                     } else {
+                         progressBar.setVisibility(View.INVISIBLE);
+                         Toast.makeText(MainActivity.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                     }
+                 }
+             });
+         }
         }
         else {
             if (emailAddress.equals("")){

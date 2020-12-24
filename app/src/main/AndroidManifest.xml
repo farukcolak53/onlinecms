@@ -35,6 +35,14 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key" />
 
+
+        <activity
+            android:name=".AdminProfileActivity" />
+
+        <activity
+            android:name=".RegisterAdminActivity"
+            android:parentActivityName=".AdminProfileActivity" />
+
         <activity
             android:name=".ProfileSettingsActivity"
             android:parentActivityName=".ProfileActivity" />
@@ -44,7 +52,9 @@
         <activity
             android:name=".NewComplaintActivity"
             android:parentActivityName=".ProfileActivity" />
+
         <activity android:name=".ProfileActivity" />
+
         <activity
             android:name=".RegisterActivity"
             android:parentActivityName=".MainActivity" />
@@ -54,6 +64,7 @@
         <activity
             android:name=".LocationHelper"
             android:parentActivityName=".NewComplaintActivity" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

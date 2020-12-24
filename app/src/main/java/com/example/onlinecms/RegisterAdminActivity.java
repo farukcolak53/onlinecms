@@ -1,22 +1,24 @@
 package com.example.onlinecms;
 
-import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
+
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
-
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterAdminActivity extends AppCompatActivity {
 
     //mail: cmsmobilproject2020@gmail.com
     //şifre: Marmara2020
@@ -33,17 +35,18 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_add_admin);
 
-        userEmail = findViewById(R.id.register_email_edit_text);
-        userPassword = findViewById(R.id.register_password_edit_text);
-        userPassword2 = findViewById(R.id.register_password_again_edit_text);
-        userName = findViewById(R.id.register_name_edit_text);
-        loadingProgress = findViewById(R.id.register_progress_bar);
-        regBtn = findViewById(R.id.register_button_sign_up);
+        userEmail = findViewById(R.id.add_admin_email_edit_text);
+        userPassword = findViewById(R.id.add_admin_password_edit_text);
+        userPassword2 = findViewById(R.id.add_admin_password_again_edit_text);
+        userName = findViewById(R.id.add_admin_name_edit_text);
+        loadingProgress = findViewById(R.id.add_admin_progress_bar);
+        regBtn = findViewById(R.id.add_admin_button_sign_up);
         loadingProgress.setVisibility(View.INVISIBLE);
 
         mAuth = FirebaseAuth.getInstance();
+
 
         regBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,15 +67,10 @@ public class RegisterActivity extends AppCompatActivity {
                     regBtn.setVisibility(View.VISIBLE);
                     loadingProgress.setVisibility(View.INVISIBLE);
 
-                }
-                else {
-                    if (email.contains("@admin.com") || email.contains("@cmsmarmara.com")){
+                } else {
+                    if (!email.contains("@cmsmarmara.com")) {
                         userEmail.setError("You cannot use that email extension!");
-                        regBtn.setVisibility(View.VISIBLE);
-                        loadingProgress.setVisibility(View.INVISIBLE);
-
-                    }
-                    else{
+                    } else {
                         // everything is ok and all fields are filled now we can start creating user account
                         // CreateUserAccount method will try to create the user if the email is valid
                         createUserAccount(email, name, password);
@@ -92,7 +90,7 @@ public class RegisterActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
 
                             // user account created successfully
-                            showMessage("Account created");
+                            showMessage("Admin created");
                             UserProfileChangeRequest profleUpdate = new UserProfileChangeRequest.Builder()
                                     .setDisplayName(name)
                                     .build();
@@ -109,8 +107,7 @@ public class RegisterActivity extends AppCompatActivity {
                                             }
                                         }
                                     });
-                        }
-                        else {
+                        } else {
                             // account creation failed
                             showMessage("account creation failed" + task.getException().getMessage());
                             regBtn.setVisibility(View.VISIBLE);
@@ -121,12 +118,13 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void updateUI() {
-        Intent homeActivity = new Intent(getApplicationContext(), MainActivity.class);
+        Intent homeActivity = new Intent(this, AdminProfileActivity.class);
         startActivity(homeActivity);
         finish();
     }
 
     private void showMessage(String message) {
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
+
 }
