@@ -89,4 +89,29 @@
 
     </TextView>
 
+    <TextView
+        android:id="@+id/dialog_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/dialog_image"
+        android:textColor="#2196F3"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@id/dialog_title"
+        app:layout_constraintTop_toBottomOf="@id/dialog_address_content">
+
+    </TextView>
+
+    <ImageView
+        android:id="@+id/dialog_image_view"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        app:layout_constraintEnd_toEndOf="@id/dialog_address_content"
+        app:layout_constraintStart_toStartOf="@id/dialog_address_content"
+        app:layout_constraintTop_toTopOf="@id/dialog_image">
+
+    </ImageView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
