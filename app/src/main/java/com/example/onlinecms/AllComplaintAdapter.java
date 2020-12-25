@@ -25,55 +25,60 @@ public class AllComplaintAdapter extends RecyclerView.Adapter<AllComplaintAdapte
     Dialog dialog;
     private FirebaseStorage firebaseStorage;
 
-    public AllComplaintAdapter( Context context) {
+    public AllComplaintAdapter(Context context) {
         this.complaintList = new ArrayList<>();
         this.context = context;
     }
 
-    public void addAll(List<Complaint> complaints){
+    public void addAll(List<Complaint> complaints) {
         complaintList.addAll(complaints);
     }
 
-    public void addSingleComplaint(Complaint complaint){
+    public void addSingleComplaint(Complaint complaint) {
         complaintList.add(complaint);
     }
+
     @NonNull
     @Override
     public MyViewHandle onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(context).inflate(R.layout.dialog_complaint,parent,false);
+        View itemView = LayoutInflater.from(context).inflate(R.layout.complaint_card_model, parent, false);
         return new MyViewHandle(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHandle holder, int position) {
-            holder.title.setText(complaintList.get(position).getTitle());
-            holder.description.setText(complaintList.get(position).getDescription());
-            holder.address.setText(complaintList.get(position).getAddress());
-            GlideApp.with(holder.image.getContext()).load(firebaseStorage.getReferenceFromUrl(complaintList.get(position).getImageUrl())).into(holder.image);
-//        holder.title.setText(complaintList.get(position).getTitle());
-//
-//        dialog = new Dialog(holder.cardLayout.getContext());
-//        dialog.setContentView(R.layout.dialog_complaint);
-//        holder.cardLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                TextView dialogTitle = dialog.findViewById(R.id.dialog_title_content);
-//                TextView dialogDescription = dialog.findViewById(R.id.dialog_description_content);
-//                TextView dialogAddress = dialog.findViewById(R.id.dialog_address_content);
-//                ImageView imageView = dialog.findViewById(R.id.dialog_image_view);
-//
-//                dialogTitle.setText(complaintList.get(position).getTitle());
-//                dialogDescription.setText(complaintList.get(position).getDescription());
-//                dialogAddress.setText(complaintList.get(position).getAddress());
-//
-//
-//                GlideApp.with(holder.cardLayout.getContext())
-//                        .load(firebaseStorage.getReferenceFromUrl(complaintList.get(position).getImageUrl()))
-//                        .into(imageView);
-//
-//                dialog.show();
-//            }
-//        });
+        firebaseStorage = FirebaseStorage.getInstance();
+        holder.titleComplaint.setText(complaintList.get(position).getTitle());
+        holder.date.setText(complaintList.get(position).getDateCreated());
+        dialog = new Dialog(holder.cardLayout.getContext());
+        dialog.setContentView(R.layout.dialog_complaint);
+        holder.cardLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextView dialogTitle = dialog.findViewById(R.id.dialog_title_content);
+                TextView dialogDescription = dialog.findViewById(R.id.dialog_description_content);
+                TextView dialogAddress = dialog.findViewById(R.id.dialog_address_content);
+                ImageView imageView = dialog.findViewById(R.id.dialog_image_view);
+                TextView dialogDate = dialog.findViewById(R.id.dialog_date_content);
+
+                dialogTitle.setText(complaintList.get(position).getTitle());
+                dialogDescription.setText(complaintList.get(position).getDescription());
+                dialogAddress.setText(complaintList.get(position).getAddress());
+                dialogDate.setText(complaintList.get(position).getDateCreated());
+                imageView.setVisibility(View.GONE);
+
+                if (!complaintList.get(position).getImageUrl().equals("")) {
+                    GlideApp.with(holder.cardLayout.getContext())
+                            .load(firebaseStorage.getReferenceFromUrl(complaintList.get(position).getImageUrl()))
+                            .into(imageView);
+                    imageView.setVisibility(View.VISIBLE);
+
+                    //holder.image.setVisibility(View.VISIBLE);
+                }
+
+                dialog.show();
+            }
+        });
 
     }
 
@@ -82,19 +87,16 @@ public class AllComplaintAdapter extends RecyclerView.Adapter<AllComplaintAdapte
         return complaintList.size();
     }
 
-    public class MyViewHandle extends RecyclerView.ViewHolder{
-        TextView title, description, address;
-        ImageView image;
+    public class MyViewHandle extends RecyclerView.ViewHolder {
         ConstraintLayout cardLayout;
         TextView titleComplaint;
-        public MyViewHandle(View itemView){
+        TextView date;
+        public MyViewHandle(View itemView) {
             super(itemView);
-            //cardLayout = itemView.findViewById(R.id.card_model_layout);
-            title  = itemView.findViewById(R.id.dialog_title_content);
-            description = itemView.findViewById(R.id.dialog_description_content);
-            address = itemView.findViewById(R.id.dialog_address_content);
-            image = itemView.findViewById(R.id.dialog_image_view);
-            //titleComplaint = itemView.findViewById(R.id.complaint_model_title_text_view);
+            cardLayout = itemView.findViewById(R.id.card_model_layout);
+            titleComplaint = itemView.findViewById(R.id.complaint_model_title_text_view);
+            date = itemView.findViewById(R.id.complaint_model_date_text_view);
+
         }
     }
 

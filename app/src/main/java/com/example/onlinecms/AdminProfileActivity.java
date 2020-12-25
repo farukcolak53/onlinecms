@@ -55,7 +55,7 @@ public class AdminProfileActivity  extends AppCompatActivity {
 
     // butu sikayetleri gosterme sayfsina yonlendirme
     public void displayAllComplaints(View view) {
-        Intent intent = new Intent(this, MyComplaintsActivity.class);
+        Intent intent = new Intent(this, AllActivities.class);
         startActivity(intent);
     }
 
