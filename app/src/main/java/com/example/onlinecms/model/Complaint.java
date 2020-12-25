@@ -10,7 +10,8 @@ public class Complaint {
     private String address;
     private String imageUrl;
     private String dateCreated;
-    private static int count = 0;
+    //private static int count = 0;
+    private int count;
     private String id;
     private String email;
     private int status;
@@ -18,7 +19,7 @@ public class Complaint {
 
     }
 
-    public Complaint(String title, String description, String address, String imageUrl, String dateCreated, String id, String email) {
+    public Complaint(String title, String description, String address, String imageUrl, String dateCreated, String id, String email, int count) {
         this.title = title;
         this.description = description;
         this.address = address;
@@ -27,14 +28,14 @@ public class Complaint {
         this.id = id;
         this.email = email;
         this.status = 0;
-        this.count = count + 1;
+        this.count = count;
     }
 
     public void setStatus(int status) {
         this.status = status;
     }
 
-    public static int getCount() {
+    public int getCount() {
         return count;
     }
 
@@ -48,6 +49,7 @@ public class Complaint {
         result.put("id",id);
         result.put("email", email);
         result.put("status",status);
+        result.put("count",count);
         return result;
     }
 

@@ -69,6 +69,7 @@ public class AllComplaintAdapter extends RecyclerView.Adapter<AllComplaintAdapte
                 String imageUrl = complaintList.get(position).getImageUrl();
                 String id = complaintList.get(position).getId();
                 String email = complaintList.get(position).getEmail();
+                int count = complaintList.get(position).getCount();
                 int status = complaintList.get(position).getStatus();
 
 
@@ -81,6 +82,7 @@ public class AllComplaintAdapter extends RecyclerView.Adapter<AllComplaintAdapte
                 intent.putExtra("id",id);
                 intent.putExtra("email",email);
                 intent.putExtra("status",status);
+                intent.putExtra("count",count);
                 view.getContext().startActivity(intent);
                 //dialogTitle.setText(complaintList.get(position).getTitle());
                 //dialogDescription.setText(complaintList.get(position).getDescription());

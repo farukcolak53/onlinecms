@@ -52,6 +52,7 @@ public class NewComplaintActivity extends AppCompatActivity {
     private EditText titleText;
     private EditText descriptionText;
     private TextView addressText;
+    private TextView emailText;
     private DatabaseReference mRef;
     private FirebaseUser user;
     private FirebaseStorage firebaseStorage;
@@ -67,11 +68,15 @@ public class NewComplaintActivity extends AppCompatActivity {
         titleText = findViewById(R.id.new_complaint_title_edit_text);
         descriptionText = findViewById(R.id.new_complaint_description_edit_text);
         addressText = findViewById(R.id.new_complaint_location_text_view);
+        emailText = findViewById(R.id.new_complaint_email);
+
 
         imageUri = Uri.EMPTY;
 
         mRef = FirebaseDatabase.getInstance().getReference();
         user = FirebaseAuth.getInstance().getCurrentUser();
+
+        emailText.setText(user.getEmail());
 
         firebaseStorage = FirebaseStorage.getInstance();
         mStorageRef = firebaseStorage.getReference();
@@ -249,7 +254,7 @@ public class NewComplaintActivity extends AppCompatActivity {
         String date = Calendar.getInstance(TimeZone.getTimeZone("GMT+3")).getTime().toString();
 
 
-        Complaint complaint = new Complaint(title,desc,address, url, date, id, email);
+        Complaint complaint = new Complaint(title,desc,address, url, date, id, email,count);
         mRef.child(id).child(Integer.toString(count)).updateChildren(complaint.toMap());
     }
 }
