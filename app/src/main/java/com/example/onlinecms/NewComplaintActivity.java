@@ -41,7 +41,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.TimeZone;
 
 public class NewComplaintActivity extends AppCompatActivity {
@@ -68,6 +67,9 @@ public class NewComplaintActivity extends AppCompatActivity {
         titleText = findViewById(R.id.new_complaint_title_edit_text);
         descriptionText = findViewById(R.id.new_complaint_description_edit_text);
         addressText = findViewById(R.id.new_complaint_location_text_view);
+
+        imageUri = Uri.EMPTY;
+
         mRef = FirebaseDatabase.getInstance().getReference();
         user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -143,13 +145,22 @@ public class NewComplaintActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()){
                         int count =(int) snapshot.getChildrenCount();
-                        uploadImageToStorage(id, count, title, address, description);
+                        if(!Uri.EMPTY.equals(imageUri))
+                            uploadImageToStorage(id, count, title, address, description);
+                        else {
+                            upload(id,title,description,address, "", count);
+                            finish();
+                        }
                     }
                     else{
-                        uploadImageToStorage(id, 0, title, address, description);
+                        if(!Uri.EMPTY.equals(imageUri))
+                            uploadImageToStorage(id, 0, title, address, description);
+                        else {
+                            upload(id,title,description,address, "", 0);
+                            finish();
+                        }
                     }
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
 

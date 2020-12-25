@@ -46,10 +46,14 @@ public class ComplaintAdapter extends FirebaseRecyclerAdapter<Complaint, Complai
                 dialogDescription.setText(complaint.getDescription());
                 dialogAddress.setText(complaint.getAddress());
                 dialogDate.setText(complaint.getDateCreated());
+                imageView.setVisibility(View.GONE);
 
-                GlideApp.with(holder.cardLayout.getContext())
-                        .load(firebaseStorage.getReferenceFromUrl(complaint.getImageUrl()))
-                        .into(imageView);
+                if (!complaint.getImageUrl().equals("")){
+                    GlideApp.with(holder.cardLayout.getContext())
+                            .load(firebaseStorage.getReferenceFromUrl(complaint.getImageUrl()))
+                            .into(imageView);
+                    imageView.setVisibility(View.VISIBLE);
+                }
 
                 dialog.show();
             }
@@ -60,9 +64,8 @@ public class ComplaintAdapter extends FirebaseRecyclerAdapter<Complaint, Complai
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.complaint_card_model, parent, false);
-        MyViewHolder myViewHolder = new MyViewHolder(view);
 
-        return myViewHolder;
+        return new MyViewHolder(view);
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
