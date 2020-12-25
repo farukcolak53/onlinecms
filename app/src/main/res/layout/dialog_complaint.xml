@@ -113,5 +113,32 @@
 
     </ImageView>
 
+    <TextView
+        android:id="@+id/dialog_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/dialog_date"
+        android:textColor="#2196F3"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@id/dialog_title"
+        app:layout_constraintTop_toBottomOf="@id/dialog_image_view">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/dialog_date_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:textColor="#2196F3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/dialog_description"
+        app:layout_constraintTop_toTopOf="@id/dialog_date">
+
+    </TextView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

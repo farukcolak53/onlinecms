@@ -10,9 +10,9 @@
         android:id="@+id/complaint_model_icon_image_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:background="@drawable/ic_complaint"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,13 +28,27 @@
         android:layout_marginEnd="10dp"
         android:textColor="#2196F3"
         android:textSize="20sp"
+        android:layout_marginTop="5dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/complaint_model_icon_image_view"
         app:layout_constraintStart_toEndOf="@id/complaint_model_icon_image_view"
-        app:layout_constraintTop_toTopOf="@id/complaint_model_icon_image_view">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/complaint_model_date_text_view">
 
     </TextView>
 
+    <TextView
+        android:id="@+id/complaint_model_date_text_view"
+        android:layout_width="0dp"
+        android:textSize="15sp"
+        android:textColor="#2196F3"
+        android:paddingBottom="5dp"
+        app:layout_constraintStart_toStartOf="@id/complaint_model_title_text_view"
+        app:layout_constraintEnd_toEndOf="@id/complaint_model_title_text_view"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/complaint_model_title_text_view"
+        android:layout_height="wrap_content">
+
+    </TextView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

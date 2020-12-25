@@ -9,17 +9,19 @@ public class Complaint {
     private String description;
     private String address;
     private String imageUrl;
+    private String dateCreated;
     private static int count = 0;
 
     public Complaint(){
 
     }
 
-    public Complaint(String title, String description, String address, String imageUrl) {
+    public Complaint(String title, String description, String address, String imageUrl, String dateCreated) {
         this.title = title;
         this.description = description;
         this.address = address;
         this.imageUrl = imageUrl;
+        this.dateCreated = dateCreated;
         this.count = count + 1;
     }
 
@@ -33,6 +35,7 @@ public class Complaint {
         result.put("description", description);
         result.put("title",title);
         result.put("imageUrl", imageUrl);
+        result.put("dateCreated", dateCreated);
         return result;
     }
 
@@ -50,5 +53,9 @@ public class Complaint {
 
     public String getImageUrl() {
         return imageUrl;
+    }
+
+    public String getDateCreated() {
+        return dateCreated;
     }
 }

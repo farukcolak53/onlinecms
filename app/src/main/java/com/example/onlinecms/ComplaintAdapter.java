@@ -26,6 +26,7 @@ public class ComplaintAdapter extends FirebaseRecyclerAdapter<Complaint, Complai
     @Override
     protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull Complaint complaint) {
         holder.title.setText(complaint.getTitle());
+        holder.date.setText(complaint.getDateCreated());
 
         dialog = new Dialog(holder.cardLayout.getContext());
         dialog.setContentView(R.layout.dialog_complaint);
@@ -39,11 +40,12 @@ public class ComplaintAdapter extends FirebaseRecyclerAdapter<Complaint, Complai
                 TextView dialogDescription = dialog.findViewById(R.id.dialog_description_content);
                 TextView dialogAddress = dialog.findViewById(R.id.dialog_address_content);
                 ImageView imageView = dialog.findViewById(R.id.dialog_image_view);
+                TextView dialogDate = dialog.findViewById(R.id.dialog_date_content);
 
                 dialogTitle.setText(complaint.getTitle());
                 dialogDescription.setText(complaint.getDescription());
                 dialogAddress.setText(complaint.getAddress());
-
+                dialogDate.setText(complaint.getDateCreated());
 
                 GlideApp.with(holder.cardLayout.getContext())
                         .load(firebaseStorage.getReferenceFromUrl(complaint.getImageUrl()))
@@ -67,11 +69,13 @@ public class ComplaintAdapter extends FirebaseRecyclerAdapter<Complaint, Complai
 
         ConstraintLayout cardLayout;
         TextView title;
+        TextView date;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             cardLayout = itemView.findViewById(R.id.card_model_layout);
             title = itemView.findViewById(R.id.complaint_model_title_text_view);
+            date = itemView.findViewById(R.id.complaint_model_date_text_view);
         }
     }
 }
