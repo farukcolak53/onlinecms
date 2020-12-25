@@ -13,7 +13,7 @@ public class Complaint {
     private static int count = 0;
     private String id;
     private String email;
-    private String status;
+    private int status;
     public Complaint(){
 
     }
@@ -26,11 +26,11 @@ public class Complaint {
         this.dateCreated = dateCreated;
         this.id = id;
         this.email = email;
-        this.status = "open";
+        this.status = 0;
         this.count = count + 1;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -79,7 +79,7 @@ public class Complaint {
         return email;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 }

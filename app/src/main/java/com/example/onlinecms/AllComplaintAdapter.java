@@ -69,7 +69,7 @@ public class AllComplaintAdapter extends RecyclerView.Adapter<AllComplaintAdapte
                 String imageUrl = complaintList.get(position).getImageUrl();
                 String id = complaintList.get(position).getId();
                 String email = complaintList.get(position).getEmail();
-                String status = complaintList.get(position).getStatus();
+                int status = complaintList.get(position).getStatus();
 
 
                 Intent intent = new Intent(view.getContext(), AdminDisplayComplaintsActivity.class);

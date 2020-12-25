@@ -18,6 +18,7 @@ public class ComplaintAdapter extends FirebaseRecyclerAdapter<Complaint, Complai
 
     Dialog dialog;
     private FirebaseStorage firebaseStorage;
+    //String[] some_array = getResources().getStringArray(R.array.status);
 
     public ComplaintAdapter(@NonNull FirebaseRecyclerOptions<Complaint> options) {
         super(options);
@@ -41,11 +42,13 @@ public class ComplaintAdapter extends FirebaseRecyclerAdapter<Complaint, Complai
                 TextView dialogAddress = dialog.findViewById(R.id.dialog_address_content);
                 ImageView imageView = dialog.findViewById(R.id.dialog_image_view);
                 TextView dialogDate = dialog.findViewById(R.id.dialog_date_content);
+                TextView dialogStatus = dialog.findViewById(R.id.dialog_status_text_content);
 
                 dialogTitle.setText(complaint.getTitle());
                 dialogDescription.setText(complaint.getDescription());
                 dialogAddress.setText(complaint.getAddress());
                 dialogDate.setText(complaint.getDateCreated());
+                dialogStatus.setText(holder.cardLayout.getContext().getResources().getStringArray(R.array.status)[complaint.getStatus()]);
                 imageView.setVisibility(View.GONE);
 
                 if (!complaint.getImageUrl().equals("")){
