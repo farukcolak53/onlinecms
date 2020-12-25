@@ -2,6 +2,7 @@ package com.example.onlinecms;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,33 +51,46 @@ public class AllComplaintAdapter extends RecyclerView.Adapter<AllComplaintAdapte
         firebaseStorage = FirebaseStorage.getInstance();
         holder.titleComplaint.setText(complaintList.get(position).getTitle());
         holder.date.setText(complaintList.get(position).getDateCreated());
-        dialog = new Dialog(holder.cardLayout.getContext());
-        dialog.setContentView(R.layout.dialog_complaint);
+        //dialog = new Dialog(holder.cardLayout.getContext());
+        //dialog.setContentView(R.layout.dialog_complaint);
         holder.cardLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView dialogTitle = dialog.findViewById(R.id.dialog_title_content);
-                TextView dialogDescription = dialog.findViewById(R.id.dialog_description_content);
-                TextView dialogAddress = dialog.findViewById(R.id.dialog_address_content);
-                ImageView imageView = dialog.findViewById(R.id.dialog_image_view);
-                TextView dialogDate = dialog.findViewById(R.id.dialog_date_content);
+                //TextView dialogTitle = dialog.findViewById(R.id.dialog_title_content);
+                //TextView dialogDescription = dialog.findViewById(R.id.dialog_description_content);
+                //TextView dialogAddress = dialog.findViewById(R.id.dialog_address_content);
+                //ImageView imageView = dialog.findViewById(R.id.dialog_image_view);
+                //TextView dialogDate = dialog.findViewById(R.id.dialog_date_content);
 
-                dialogTitle.setText(complaintList.get(position).getTitle());
-                dialogDescription.setText(complaintList.get(position).getDescription());
-                dialogAddress.setText(complaintList.get(position).getAddress());
-                dialogDate.setText(complaintList.get(position).getDateCreated());
-                imageView.setVisibility(View.GONE);
+                String title = complaintList.get(position).getTitle();
+                String description = complaintList.get(position).getDescription();
+                String address = complaintList.get(position).getAddress();
+                String date = complaintList.get(position).getDateCreated();
+                String imageUrl = complaintList.get(position).getImageUrl();
 
-                if (!complaintList.get(position).getImageUrl().equals("")) {
+                Intent intent = new Intent(view.getContext(), AdminDisplayComplaintsActivity.class);
+                intent.putExtra("title", title);
+                intent.putExtra("description", description);
+                intent.putExtra("address", address);
+                intent.putExtra("date", date);
+                intent.putExtra("imageUrl", imageUrl);
+                view.getContext().startActivity(intent);
+                //dialogTitle.setText(complaintList.get(position).getTitle());
+                //dialogDescription.setText(complaintList.get(position).getDescription());
+                //dialogAddress.setText(complaintList.get(position).getAddress());
+                //dialogDate.setText(complaintList.get(position).getDateCreated());
+                //imageView.setVisibility(View.GONE);
+
+                /*if (!complaintList.get(position).getImageUrl().equals("")) {
                     GlideApp.with(holder.cardLayout.getContext())
                             .load(firebaseStorage.getReferenceFromUrl(complaintList.get(position).getImageUrl()))
                             .into(imageView);
                     imageView.setVisibility(View.VISIBLE);
 
                     //holder.image.setVisibility(View.VISIBLE);
-                }
+                }*/
 
-                dialog.show();
+                //dialog.show();
             }
         });
 
