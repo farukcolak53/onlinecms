@@ -47,6 +47,7 @@
     <string name="add_new_admin_password_again">Retype Password</string>
     <string name="add_new_admin_button">ADD</string>
     <string name="all_complaints_header_text">All Complaints</string>
-
+    <string name="admin_each_complaints">Complaint</string>
+    <string name="admin_each_complaints_user">User: </string>
 
 </resources>
