@@ -35,6 +35,14 @@ public class AdminDisplayComplaintsActivity extends AppCompatActivity {
         String address = intent.getStringExtra("address");
         String date = intent.getStringExtra("date");
         String imageUrl = intent.getStringExtra("imageUrl");
+        String id = intent.getStringExtra("id");
+        String email = intent.getStringExtra("email");
+        String status = intent.getStringExtra("status");
+
+        System.out.println(id);
+        System.out.println(email);
+        System.out.println(status);
+
 
         titleTextView = findViewById(R.id.admin_each_complaint_title_content);
         addressTextView = findViewById(R.id.admin_each_complaint_address_content);

@@ -248,6 +248,7 @@ public class NewComplaintActivity extends AppCompatActivity {
 
         String date = Calendar.getInstance(TimeZone.getTimeZone("GMT+3")).getTime().toString();
 
+
         Complaint complaint = new Complaint(title,desc,address, url, date, id, email);
         mRef.child(id).child(Integer.toString(count)).updateChildren(complaint.toMap());
     }

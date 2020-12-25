@@ -47,6 +47,7 @@ public class Complaint {
         result.put("dateCreated", dateCreated);
         result.put("id",id);
         result.put("email", email);
+        result.put("status",status);
         return result;
     }
 
@@ -68,5 +69,17 @@ public class Complaint {
 
     public String getDateCreated() {
         return dateCreated;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getStatus() {
+        return status;
     }
 }

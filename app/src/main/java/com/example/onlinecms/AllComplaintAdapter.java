@@ -67,6 +67,10 @@ public class AllComplaintAdapter extends RecyclerView.Adapter<AllComplaintAdapte
                 String address = complaintList.get(position).getAddress();
                 String date = complaintList.get(position).getDateCreated();
                 String imageUrl = complaintList.get(position).getImageUrl();
+                String id = complaintList.get(position).getId();
+                String email = complaintList.get(position).getEmail();
+                String status = complaintList.get(position).getStatus();
+
 
                 Intent intent = new Intent(view.getContext(), AdminDisplayComplaintsActivity.class);
                 intent.putExtra("title", title);
@@ -74,6 +78,9 @@ public class AllComplaintAdapter extends RecyclerView.Adapter<AllComplaintAdapte
                 intent.putExtra("address", address);
                 intent.putExtra("date", date);
                 intent.putExtra("imageUrl", imageUrl);
+                intent.putExtra("id",id);
+                intent.putExtra("email",email);
+                intent.putExtra("status",status);
                 view.getContext().startActivity(intent);
                 //dialogTitle.setText(complaintList.get(position).getTitle());
                 //dialogDescription.setText(complaintList.get(position).getDescription());
