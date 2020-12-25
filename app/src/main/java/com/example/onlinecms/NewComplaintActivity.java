@@ -148,7 +148,7 @@ public class NewComplaintActivity extends AppCompatActivity {
                         if(!Uri.EMPTY.equals(imageUri))
                             uploadImageToStorage(id, count, title, address, description);
                         else {
-                            upload(id,title,description,address, "", count);
+                            upload(id,title,description,address, "", count, user.getEmail());
                             finish();
                         }
                     }
@@ -156,7 +156,7 @@ public class NewComplaintActivity extends AppCompatActivity {
                         if(!Uri.EMPTY.equals(imageUri))
                             uploadImageToStorage(id, 0, title, address, description);
                         else {
-                            upload(id,title,description,address, "", 0);
+                            upload(id,title,description,address, "", 0,user.getEmail());
                             finish();
                         }
                     }
@@ -182,7 +182,7 @@ public class NewComplaintActivity extends AppCompatActivity {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Toast.makeText(NewComplaintActivity.this, "Image uploaded!", Toast.LENGTH_SHORT).show();
                 String imageUrl = "https://firebasestorage.googleapis.com/b/cmsmarmara.appspot.com/o/images/" + id + "*" + count;
-                upload(id,title,description,address, imageUrl, count);
+                upload(id,title,description,address, imageUrl, count, user.getEmail());
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {
@@ -244,11 +244,11 @@ public class NewComplaintActivity extends AppCompatActivity {
         startActivityForResult(intent, PICK_IMAGE);
     }
 
-    private void upload(String id, String title, String desc, String address, String url, int count){
+    private void upload(String id, String title, String desc, String address, String url, int count, String email){
 
         String date = Calendar.getInstance(TimeZone.getTimeZone("GMT+3")).getTime().toString();
 
-        Complaint complaint = new Complaint(title,desc,address, url, date);
+        Complaint complaint = new Complaint(title,desc,address, url, date, id, email);
         mRef.child(id).child(Integer.toString(count)).updateChildren(complaint.toMap());
     }
 }
