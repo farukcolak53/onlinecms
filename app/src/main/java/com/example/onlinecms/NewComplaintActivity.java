@@ -40,6 +40,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class NewComplaintActivity extends AppCompatActivity {
 
@@ -231,7 +234,10 @@ public class NewComplaintActivity extends AppCompatActivity {
     }
 
     private void upload(String id, String title, String desc, String address, String url, int count){
-        Complaint complaint = new Complaint(title,desc,address, url);
+
+        String date = Calendar.getInstance(TimeZone.getTimeZone("GMT+3")).getTime().toString();
+
+        Complaint complaint = new Complaint(title,desc,address, url, date);
         mRef.child(id).child(Integer.toString(count)).updateChildren(complaint.toMap());
     }
 }
