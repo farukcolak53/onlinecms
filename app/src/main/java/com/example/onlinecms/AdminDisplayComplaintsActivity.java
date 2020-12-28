@@ -111,6 +111,9 @@ public class AdminDisplayComplaintsActivity extends AppCompatActivity implements
                 Toast.makeText(AdminDisplayComplaintsActivity.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
             }
         }
+        else if ("Open".equals(status) && statu != 0){
+            mRef.child(userID).child(Integer.toString(count)).child("status").setValue(0);
+        }
     }
 
     @Override
