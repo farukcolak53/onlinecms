@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:text="@string/dialog_address"
+        android:text="@string/dialog_title"
         android:textColor="#2196F3"
         android:textSize="15sp"
         android:textStyle="bold"

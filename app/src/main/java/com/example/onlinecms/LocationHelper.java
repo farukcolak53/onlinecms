@@ -175,8 +175,7 @@ public class LocationHelper extends AppCompatActivity
             finish();
         }
         else{
-            Intent myIntent = new Intent(getApplicationContext(), NewComplaintActivity.class);
-            startActivityForResult(myIntent, 0);
+            finish();
         }
         return true;
     }
@@ -302,13 +301,10 @@ public class LocationHelper extends AppCompatActivity
                                            @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         locationPermissionGranted = false;
-        switch (requestCode) {
-            case PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    locationPermissionGranted = true;
-                }
+        if (requestCode == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) {// If request is cancelled, the result arrays are empty.
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                locationPermissionGranted = true;
             }
         }
         updateLocationUI();
