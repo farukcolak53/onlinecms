@@ -82,11 +82,14 @@ public class AdminDisplayComplaintsActivity extends AppCompatActivity implements
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
-        spinner.setSelection(statu);
+        spinner.post(new Runnable() {
+            @Override
+            public void run() {
+                spinner.setSelection(statu);
+            }
+        });
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
-
-
     }
 
     @Override

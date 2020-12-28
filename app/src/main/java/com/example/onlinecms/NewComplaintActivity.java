@@ -199,8 +199,6 @@ public class NewComplaintActivity extends AppCompatActivity {
         }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                //double progress = (100.0*snapshot.getBytesTransferred())/snapshot.getTotalByteCount();
-                //progressDialog.setMessage("Uploaded " + (int)progress + "%");
                 progressDialog.setMessage("Uploading");
                 progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             }
@@ -211,20 +209,18 @@ public class NewComplaintActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == TAKE_PHOTO){
-            imageUri = data.getData();
-            imageView.setImageURI(imageUri);
-            imageView.setVisibility(View.VISIBLE);
-        }
-
-        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE){
-            imageUri = data.getData();
-            imageView.setImageURI(imageUri);
-            imageView.setVisibility(View.VISIBLE);
-        }
-
-        if(requestCode == LOCATION){
-            if(resultCode == RESULT_OK){
+        if (resultCode == RESULT_OK){
+            if (requestCode == TAKE_PHOTO){
+                imageUri = data.getData();
+                imageView.setImageURI(imageUri);
+                imageView.setVisibility(View.VISIBLE);
+            }
+            else if (requestCode == PICK_IMAGE){
+                imageUri = data.getData();
+                imageView.setImageURI(imageUri);
+                imageView.setVisibility(View.VISIBLE);
+            }
+            else if (requestCode == LOCATION){
                 Geocoder geocoder;
                 List<Address> addresses = null;
                 geocoder = new Geocoder(this, Locale.getDefault());
@@ -232,10 +228,10 @@ public class NewComplaintActivity extends AppCompatActivity {
                 Location location = (Location) data.getExtras().get("location");
                 try {
                     addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                } catch (IOException e) {
+                }
+                catch (IOException e) {
                     e.printStackTrace();
                 }
-
                 String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
                 TextView locationText = findViewById(R.id.new_complaint_location_text_view);
                 locationText.setVisibility(View.VISIBLE);
@@ -252,7 +248,6 @@ public class NewComplaintActivity extends AppCompatActivity {
     private void upload(String id, String title, String desc, String address, String url, int count, String email){
 
         String date = Calendar.getInstance(TimeZone.getTimeZone("GMT+3")).getTime().toString();
-
 
         Complaint complaint = new Complaint(title,desc,address, url, date, id, email,count);
         mRef.child(id).child(Integer.toString(count)).updateChildren(complaint.toMap());
