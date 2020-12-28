@@ -106,7 +106,6 @@ public class AdminDisplayComplaintsActivity extends AppCompatActivity implements
 
             try {
                 startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-                finish();
             } catch (android.content.ActivityNotFoundException ex) {
                 Toast.makeText(AdminDisplayComplaintsActivity.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
             }
