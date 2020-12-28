@@ -2,9 +2,11 @@ package com.example.onlinecms;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -45,6 +47,14 @@ public class AllComplaintAdapter extends RecyclerView.Adapter<AllComplaintAdapte
         firebaseStorage = FirebaseStorage.getInstance();
         holder.titleComplaint.setText(complaintList.get(position).getTitle());
         holder.date.setText(complaintList.get(position).getDateCreated());
+
+        if (complaintList.get(position).getStatus() == 1){
+            holder.cardLayout.setBackgroundColor(Color.parseColor("#C0C0C0"));
+            holder.complaintImage.setBackgroundResource(R.drawable.ic_complaint_reverse);
+            holder.titleComplaint.setTextColor(Color.parseColor("#FFF6AD"));
+            holder.date.setTextColor(Color.parseColor("#FFF6AD"));
+        }
+
         holder.cardLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,11 +95,14 @@ public class AllComplaintAdapter extends RecyclerView.Adapter<AllComplaintAdapte
         ConstraintLayout cardLayout;
         TextView titleComplaint;
         TextView date;
+        ImageView complaintImage;
+
         public MyViewHandle(View itemView) {
             super(itemView);
             cardLayout = itemView.findViewById(R.id.card_model_layout);
             titleComplaint = itemView.findViewById(R.id.complaint_model_title_text_view);
             date = itemView.findViewById(R.id.complaint_model_date_text_view);
+            complaintImage = itemView.findViewById(R.id.complaint_model_icon_image_view);
         }
     }
 }
