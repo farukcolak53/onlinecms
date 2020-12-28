@@ -29,11 +29,11 @@ public class AllActivities extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.all_activities);
+        setContentView(R.layout.activity_all_complaints);
         mRef = FirebaseDatabase.getInstance().getReference();
         firebaseStorage = FirebaseStorage.getInstance();
         mStorageRef = firebaseStorage.getReference();
-        recyclerView = findViewById(R.id.all_complaints);
+        recyclerView = findViewById(R.id.all_complaints_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         ids = new ArrayList<>();
         adapter = new AllComplaintAdapter(this);

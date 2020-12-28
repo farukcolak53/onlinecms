@@ -1,6 +1,7 @@
 package com.example.onlinecms;
 
 import android.app.Dialog;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,13 @@ public class ComplaintAdapter extends FirebaseRecyclerAdapter<Complaint, Complai
     protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull Complaint complaint) {
         holder.title.setText(complaint.getTitle());
         holder.date.setText(complaint.getDateCreated());
+
+        if (complaint.getStatus() == 1){
+            holder.cardLayout.setBackgroundColor(Color.parseColor("#C0C0C0"));
+            holder.complaintImage.setBackgroundResource(R.drawable.ic_complaint_reverse);
+            holder.title.setTextColor(Color.parseColor("#FFF6AD"));
+            holder.date.setTextColor(Color.parseColor("#FFF6AD"));
+        }
 
         dialog = new Dialog(holder.cardLayout.getContext());
         dialog.setContentView(R.layout.dialog_complaint);
@@ -76,12 +84,14 @@ public class ComplaintAdapter extends FirebaseRecyclerAdapter<Complaint, Complai
         ConstraintLayout cardLayout;
         TextView title;
         TextView date;
+        ImageView complaintImage;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             cardLayout = itemView.findViewById(R.id.card_model_layout);
             title = itemView.findViewById(R.id.complaint_model_title_text_view);
             date = itemView.findViewById(R.id.complaint_model_date_text_view);
+            complaintImage = itemView.findViewById(R.id.complaint_model_icon_image_view);
         }
     }
 }
